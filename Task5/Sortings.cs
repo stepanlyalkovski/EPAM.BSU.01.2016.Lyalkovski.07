@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,14 +24,21 @@ namespace Task5
                 {                    
                     if (comp.Compare(array[sort], array[sort + 1]) > 0)
                     {
-                        T temp = array[sort + 1];
-                        array[sort + 1] = array[sort];
-                        array[sort] = temp;
+                        Swap(ref array[sort], ref array[sort + 1]);
                     }
                 }
             }
 
         }
+
+        private static void Swap<T>(ref T arg1, ref T arg2)
+        {
+            T temp = arg2;
+            arg2 = arg1;
+            arg1 = temp;
+        }
+
+
 
     }
 }
