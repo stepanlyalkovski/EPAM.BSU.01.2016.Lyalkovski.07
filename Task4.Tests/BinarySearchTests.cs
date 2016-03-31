@@ -11,6 +11,7 @@ namespace Task4.Tests
     [TestFixture]
     public class BinarySearchTests
     {
+
         private class Item
         {
             public int Number { get; set; }
@@ -42,7 +43,7 @@ namespace Task4.Tests
         {
             List<int> list = new List<int> {1, 2, 3, 4, 5, 6, 15, 23, 54, 96, 156, 234, 300, 550, 759, 810, 911, 1024};
             int value = list[listIndex];
-            int position = BinarySearch.Search(list.ToArray(), value);
+            int position = Search.BinarySearch(list.ToArray(), value);
 
             Assert.AreEqual(listIndex, position);       
         }
@@ -56,7 +57,7 @@ namespace Task4.Tests
         {
             List<double> list = new List<double> { 1, 2, 3, 4, 5, 6, 15, 23.45, 54, 96, 156.34, 234, 300.123, 550.312, 752, 810, 911, 1024.00099, 1024.001};
             double value = list[listIndex];
-            int position = BinarySearch.Search(list.ToArray(), value);
+            int position = Search.BinarySearch(list.ToArray(), value);
 
             Assert.AreEqual(listIndex, position);
         }
@@ -65,20 +66,20 @@ namespace Task4.Tests
         public void Search_SortedIntList_NotFound()
         {
             List<int> list = new List<int> { 1, 2, 3, 4, 5, 6};
-            int index = BinarySearch.Search(list.ToArray(), 99);
+            int index = Search.BinarySearch(list.ToArray(), 99);
             Assert.AreEqual(-1, index);
         }
 
         [Test]
         public void Search_UnsupportedType_Exception()
         {
-            Assert.Throws<ArgumentException>(() => BinarySearch.Search(items.ToArray(), item));
+            Assert.Throws<ArgumentException>(() => Search.BinarySearch(items.ToArray(), item));
         }
 
         [Test]
         public void Search_UnsupportedTypeWithComparer_Index()
         {
-            int index = BinarySearch.Search(items.ToArray(), item, new ItemComparer());
+            int index = Search.BinarySearch(items.ToArray(), item, new ItemComparer());
             int expectedIndex = items.IndexOf(item);
             Assert.AreEqual(expectedIndex, index);
         }
