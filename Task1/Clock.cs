@@ -11,11 +11,11 @@ namespace Task1
     public class Clock
     {
         private TimeSpan time = new TimeSpan();
-        public event EventHandler<EventArgs> TimeIsOver;
+        public event EventHandler<EventArgs> TimeIsOver = delegate { };
 
         protected virtual void OnTimeIsOver(object sender, EventArgs e)
         {
-            TimeIsOver?.Invoke(sender, e);
+            TimeIsOver(sender, e);
         }
 
         public void SetCountDown(int seconds)
