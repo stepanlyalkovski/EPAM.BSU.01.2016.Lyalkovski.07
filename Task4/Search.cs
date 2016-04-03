@@ -21,7 +21,27 @@ namespace Task4
 
         public static int BinarySearch<T>(T[] array, int lowBound, int highBound, T value, IComparer<T> comparer)
         {
-            IComparer<T> comp = comparer ?? Comparer<T>.Default;
+            if(array == null)
+                throw new ArgumentNullException(nameof(array));
+
+            if(lowBound < 0)
+                throw new ArgumentOutOfRangeException(nameof(lowBound));
+
+            if(highBound < 0)
+                throw new ArgumentOutOfRangeException(nameof(highBound));
+
+            if(highBound < lowBound)
+                throw new ArgumentException("highBound is less than lowBound");
+
+            IComparer<T> comp;
+
+            if (comparer == null)
+                if(value is IComparable<T>)
+                    comp =  Comparer<T>.Default;
+                else
+                    throw new ArgumentException();
+            else
+                comp = comparer;
 
             while (lowBound <= highBound)
             {
