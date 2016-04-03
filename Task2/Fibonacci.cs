@@ -8,17 +8,24 @@ namespace Task2
 {
     public class Fibonacci
     {
-        public static IEnumerable<int> GetSequence(int number)
+        public static IEnumerable<long> FibonacciSequence(int number)
         {
-            int num1 = 0;
-            int num2 = 1;
+            if (number < 0)
+                throw new ArgumentOutOfRangeException(nameof(number));
+
+            long num1 = 0;
+            long num2 = 1;
 
             for (int i = 0; i < number; i++)
             {
                 yield return num1;
-                int temp = num2;
-                num2 += num1;
-                num1 = temp;
+                checked
+                {
+                    long temp = num2;
+                    num2 += num1;
+                    num1 = temp;
+                }
+
             }
         }
     }
