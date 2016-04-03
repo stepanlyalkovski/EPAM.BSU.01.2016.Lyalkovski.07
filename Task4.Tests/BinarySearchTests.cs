@@ -77,6 +77,25 @@ namespace Task4.Tests
         }
 
         [Test]
+        public void Search_NullArrayReference_NullReferenceException()
+        {
+            int[] array = null;
+            int simpleNumber = 5;
+            Assert.Throws<NullReferenceException>(() => Search.BinarySearch(array, simpleNumber));
+        }
+
+        [Test]
+        public void Search_NegativeNumber_NullReferenceException()
+        {
+            int[] array =  { 1, 2, 3, 4, 5, 6 };
+            int simpleNumber = 5;
+            int highBound = 10;
+            int wrongLowBound = -5;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => Search.BinarySearch(array, wrongLowBound, highBound, simpleNumber, null));
+        }
+
+        [Test]
         public void Search_UnsupportedTypeWithComparer_Index()
         {
             int index = Search.BinarySearch(items.ToArray(), item, new ItemComparer());
