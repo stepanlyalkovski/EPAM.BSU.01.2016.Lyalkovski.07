@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,19 @@ namespace Task4
     {
         public static int BinarySearch<T>(T[] array, T value)
         {
-            return BinarySearch(array, value, null);
+            return BinarySearch(array, value, (IComparer<T>) null);
         }
 
         public static int BinarySearch<T>(T[] array, T value, IComparer<T> comparer)
         {
+
             return BinarySearch(array, 0, array.Length - 1, value, comparer);
+        }
+
+        public static int BinarySearch<T>(T[] array, T value, Comparison<T> comparison)
+        {
+            var comparerAdapter = new ComparisonAdapter<T>(comparison);
+            return BinarySearch(array, value, comparerAdapter);
         }
 
         public static int BinarySearch<T>(T[] array, int lowBound, int highBound, T value, IComparer<T> comparer)
@@ -61,6 +69,18 @@ namespace Task4
             return -1;
         }
 
-        
+        private class ComparisonAdapter<T> : IComparer<T>
+        {
+            private readonly Comparison<T> comparison; 
+            public ComparisonAdapter(Comparison<T> comparison )
+            {
+                this.comparison = comparison;
+            }
+
+            public int Compare(T x, T y)
+            {
+                return comparison(x, y);
+            }
+        }
     }
 }
